@@ -9,6 +9,11 @@ server:
 # Internationalization
 spring.messages.basename: messages/messages
 
+management:
+  endpoint:
+    gateway:
+      enabled: true
+        
 spring:
   config:
     activate:
@@ -32,5 +37,11 @@ spring:
           uri: http://customers-service:8081
           predicates:
             - Path=/api/customer/**
+          filters:
+            - StripPrefix=2
+        - id: chats-service
+          uri: http://chats-service:8081
+          predicates:
+            - Path=/api/chats/**
           filters:
             - StripPrefix=2
